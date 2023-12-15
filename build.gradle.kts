@@ -39,7 +39,26 @@ kotlin {
 }
 
 tasks {
+    // Указываем приложению где искать разделяемые библиотеки Раста
     val linuxX64Test by getting(KotlinNativeTest::class) {
         environment("LD_LIBRARY_PATH", layout.projectDirectory.dir("rust-lib/target/debug").asFile.toString())
+    }
+
+    // Ббилдим библиотеки Раста
+    val rustBuild by creating(Exec::class) {
+        workingDir(layout.projectDirectory.dir("rust-lib"))
+        commandLine = listOf(
+            "cargo",
+            "build"
+        )
+    }
+
+    // Зацепляем сборку Раста за cinterop
+    getByName("cinteropRustLinuxX64") {
+        dependsOn(rustBuild)
+    }
+
+    clean {
+        delete.add(layout.projectDirectory.dir("rust-lib/target"))
     }
 }
