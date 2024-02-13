@@ -11,13 +11,8 @@ fn main() {
     let x = cbindgen::Builder::new()
         .with_crate(crate_dir)
         .with_language(Language::C)
-        // .with_style(Style::Type)
         .with_style(Style::Tag)
         .with_include_guard("RS_LIB_H")
-        // .exclude_item("GremlinClient")
-        // .with_no_includes()
-        // .with_only_target_dependencies(true)
-        // .rename_item("GremlinClient", "void")
         .generate()
         .expect("Unable to generate bindings")
         .write_to_file(format!("{target_dir}/includes/rust-lib.h"));
