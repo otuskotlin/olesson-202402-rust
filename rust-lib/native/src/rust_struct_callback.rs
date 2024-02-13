@@ -10,7 +10,7 @@ use crate::rust_struct_out::RustStructStatus::SUCCESS;
 pub type AddRustCallback = unsafe extern "C" fn(*const RustStructResult, data: *mut c_void);
 
 #[no_mangle]
-pub unsafe extern "C" fn addRustAsync(ptr: *mut RustStructQuery, callback: AddRustCallback, udat: *mut c_void) {
+pub unsafe extern "C" fn addRustCallback(ptr: *mut RustStructQuery, callback: AddRustCallback, udat: *mut c_void) {
     let data = &*ptr;
     let rt  = tokio::runtime::Builder::new_current_thread().build().unwrap();
 

@@ -3,11 +3,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import rust.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 @OptIn(ExperimentalForeignApi::class)
-class RustSuspend {
+class RustCallback {
     data class SomeData(
         var res: Int
     )
@@ -20,7 +18,7 @@ class RustSuspend {
                 right = y
             }.usePinned {
                 StableRef.create(result).usePinned { expRes ->
-                    addRustAsync(
+                    addRustCallback(
                         it.get().ptr,
                         staticCFunction { ptr: CPointer<RustStructResult>?, udat: COpaquePointer? ->
                             val dat = ptr?.pointed ?: throw Exception("Empty result")

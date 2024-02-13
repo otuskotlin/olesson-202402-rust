@@ -2,7 +2,7 @@ use std::ffi::c_int;
 
 mod rust_struct_in;
 mod rust_struct_out;
-mod rust_struct_async;
+mod rust_struct_callback;
 
 // SIMPLE ====================
 

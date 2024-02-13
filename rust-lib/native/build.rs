@@ -5,12 +5,8 @@ use cbindgen::{Language, Style};
 
 fn main() {
     let crate_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    let target_dir = format!("{crate_dir}/target");
+    let target_dir = format!("{crate_dir}/../target");
     println!("cargo:warning=target dir: {}", target_dir);
-    // let target_dir = match env::var("CARGO_TARGET_DIR") {
-    //     Ok(it) => it,
-    //     Err(_) => return //format!("{crate_dir}/target")
-    // };
 
     let x = cbindgen::Builder::new()
         .with_crate(crate_dir)
