@@ -33,3 +33,11 @@ pub extern "C" fn addRustReturnClean(ptr: *mut RustStructResult) {
         let _ = Box::from_raw(ptr);
     }
 }
+
+#[no_mangle]
+pub unsafe extern "C" fn addRustReturn1(left: c_int, right: c_int) -> RustStructResult {
+    RustStructResult {
+        sum: left + right,
+        status: RustStructStatus::SUCCESS,
+    }
+}

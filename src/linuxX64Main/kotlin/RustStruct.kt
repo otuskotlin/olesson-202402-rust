@@ -1,7 +1,5 @@
 import kotlinx.cinterop.*
 import rust.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 @OptIn(ExperimentalForeignApi::class)
 class RustStruct {
@@ -15,12 +13,20 @@ class RustStruct {
         }
     }
 
-    fun addExt1(x: Int, y: Int): Int {
+    fun addExtUnsafe(x: Int, y: Int): Int {
         val ptr = addRustReturn(x, y)
         val ctx = ptr?.pointed
-        addRustReturnClean(ptr)
         val res = ctx?.sum ?: throw Exception("Empty result")
-        if (ctx.status != SUCCESS) throw Exception("Wrong response status")
+        val status = ctx.status
+        addRustReturnClean(ptr)
+        if (status != SUCCESS) throw Exception("Wrong response status")
+        return res
+    }
+
+    fun addExtSafe(x: Int, y: Int): Int {
+        val resStruct = addRustReturn1(x, y)
+        val (res, status) = resStruct.useContents { Pair(sum, status) }
+        if (status != SUCCESS) throw Exception("Wrong response status")
         return res
     }
 }

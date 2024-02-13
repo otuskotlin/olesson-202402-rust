@@ -1,6 +1,5 @@
 headers = rust-lib.h
 
-compilerOpts.linux_x64 = -I/usr/include -I/usr/include/x86_64-linux-gnu
+compilerOpts.linux_x64 = -I/usr/include -I/usr/include/x86_64-linux-gnu -I./rust-lib/target/includes/
 #compilerOpts.linux = -I./rust-lib/target/includes -I/usr/include -I/usr/include/x86_64-linux-gnu
 linkerOpts.linux_x64 = -L./rust-lib/target/debug -lrust_lib
-#-L/usr/lib/x86_64-linux-gnu

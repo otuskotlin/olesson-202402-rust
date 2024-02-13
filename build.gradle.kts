@@ -15,9 +15,9 @@ kotlin {
     linuxX64 {
         compilations.getByName("main").cinterops {
             create("rust") {
-                includeDirs {
-                    allHeaders(layout.projectDirectory.dir("rust-lib/target/includes"))
-                }
+//                includeDirs {
+//                    allHeaders(layout.projectDirectory.dir("rust-lib/target/includes"))
+//                }
             }
         }
     }
